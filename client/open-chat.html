@@ -4,31 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Socket.io 예제</title>
+  <link rel="stylesheet" href="client.css"/>
 </head>
 <body>
-  <input type="text" id="messageInput" placeholder="메시지를 입력하세요">
-  <button id="sendMessage">전송</button>
-  <ul id="messages"></ul>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
 
-    const messageInput = document.getElementById('messageInput');
-    const sendMessageButton = document.getElementById('sendMessage');
-    const messagesList = document.getElementById('messages');
 
-    sendMessageButton.addEventListener('click', () => {
-      const message = messageInput.value;
-      socket.emit('message', message);
-      messageInput.value = '';
-    });
+  <main id="msg-container">
+    <div class="msg-box">
+        안녕
+    </div>
+    <div class="msg-box right">
+        응
+    </div>
+  </main>
+  <div class="input-box">
+      <h4>서울채팅방</h4>
+      <input placeholder="메세지를 입력하세요"/>
+      <button>전송</button>
+  </div>
 
-    socket.on('message', (data) => {
-      const li = document.createElement('li');
-      li.textContent = data;
-      messagesList.appendChild(li);
-    });
-  </script>
 </body>
+
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" 
+integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" 
+crossorigin="anonymous"></script>
+
+<script>
+  const socket = io();
+  const messageInput = document.getElementById('messageInput');
+  const sendMessageButton = document.getElementById('sendMessage');
+  const messagesList = document.getElementById('messages');
+
+  sendMessageButton.addEventListener('click', () => {
+    const message = messageInput.value;
+    socket.emit('message', message);
+    messageInput.value = '';
+  });
+
+  socket.on('message', (data) => {
+    const li = document.createElement('li');
+    li.textContent = data;
+    messagesList.appendChild(li);
+  });
+</script>
+
 </html>

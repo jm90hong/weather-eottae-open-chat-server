@@ -6,29 +6,36 @@
   <title>Socket.io 예제</title>
 </head>
 <body>
-  <input type="text" id="messageInput" placeholder="메시지를 입력하세요">
-  <button id="sendMessage">전송</button>
-  <ul id="messages"></ul>
+  
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
 
-    const messageInput = document.getElementById('messageInput');
-    const sendMessageButton = document.getElementById('sendMessage');
-    const messagesList = document.getElementById('messages');
+  <h4>날씨 오픈챗 입장하기</h4>
+    
+  <!-- 서울. 인천. 부산. 울산대구. 광주. 대전. 제주 -->
+  <button class="enter-room-btn" data-room-name="su">서울</button>
+  <button class="enter-room-btn" data-room-name="ic">인천</button>
+  <button class="enter-room-btn" data-room-name="bs">부산</button>
+  <button class="enter-room-btn" data-room-name="gj">광주</button>
+  <button class="enter-room-btn" data-room-name="ud">울산대구</button>
+  <button class="enter-room-btn" data-room-name="dj">대전</button>
+  <button class="enter-room-btn" data-room-name="jj">제주</button>
 
-    sendMessageButton.addEventListener('click', () => {
-      const message = messageInput.value;
-      socket.emit('message', message);
-      messageInput.value = '';
-    });
 
-    socket.on('message', (data) => {
-      const li = document.createElement('li');
-      li.textContent = data;
-      messagesList.appendChild(li);
-    });
-  </script>
+
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function(){
+    $('.enter-room-btn').on('click',function(){
+      var roomName = $(this).data('room-name');
+
+      //방 입장
+      location.href='open-chat.html?room='+roomName;
+    });
+
+  })
+
+</script>
+
 </html>

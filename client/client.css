@@ -1,0 +1,24 @@
+
+
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+
+.right{
+    text-align: right;
+}
+
+main{
+    height: calc(100vh - 50px);
+    background-color: #FFECC9;
+}
+
+.input-box{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
