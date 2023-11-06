@@ -19,34 +19,52 @@
     </div>
   </main>
   <div class="input-box">
-      <h4>서울채팅방</h4>
-      <input placeholder="메세지를 입력하세요"/>
-      <button>전송</button>
+      <h4 id="title">--채팅방</h4>
+      <input id="msg" placeholder="메세지를 입력하세요"/>
+      <button id="send-msg-btn">전송</button>
   </div>
 
 </body>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" 
 integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" 
 crossorigin="anonymous"></script>
 
 <script>
-  const socket = io();
-  const messageInput = document.getElementById('messageInput');
-  const sendMessageButton = document.getElementById('sendMessage');
-  const messagesList = document.getElementById('messages');
 
-  sendMessageButton.addEventListener('click', () => {
-    const message = messageInput.value;
-    socket.emit('message', message);
-    messageInput.value = '';
-  });
+  const chatServerUrl='http://localhost:3000'; //채팅 서버 주소
+  $(document).ready(function(){
+    
+    const urlParams = new URL(location.href).searchParams;
+    const roomCode = urlParams.get('room_code');
+    const roomName = urlParams.get('room_name');
+  
 
-  socket.on('message', (data) => {
-    const li = document.createElement('li');
-    li.textContent = data;
-    messagesList.appendChild(li);
-  });
+    $('#title').html(`${roomName} 채팅방`)
+
+
+    var socket = io(chatServerUrl);
+
+
+    socket.on('connect',()=>{
+      console.log('123');
+    })
+
+    socket.emit('join',roomCode);
+
+
+    $('#send-msg-btn').click(function(){
+      var message = $('#msg').val();
+      socket.emit('message', message);
+    });
+
+
+    socket.on('message',(data)=>{
+      console.log(data);
+    })
+  })
 </script>
-
 </html>
+
+

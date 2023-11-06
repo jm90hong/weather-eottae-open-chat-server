@@ -12,26 +12,27 @@
   <h4>날씨 오픈챗 입장하기</h4>
     
   <!-- 서울. 인천. 부산. 울산대구. 광주. 대전. 제주 -->
-  <button class="enter-room-btn" data-room-name="su">서울</button>
-  <button class="enter-room-btn" data-room-name="ic">인천</button>
-  <button class="enter-room-btn" data-room-name="bs">부산</button>
-  <button class="enter-room-btn" data-room-name="gj">광주</button>
-  <button class="enter-room-btn" data-room-name="ud">울산대구</button>
-  <button class="enter-room-btn" data-room-name="dj">대전</button>
-  <button class="enter-room-btn" data-room-name="jj">제주</button>
+  <button class="enter-room-btn" data-room-code="su" data-room-name="서울">서울</button>
+  <button class="enter-room-btn" data-room-code="ic" data-room-name="인천">인천</button>
+  <button class="enter-room-btn" data-room-code="bs" data-room-name="부산">부산</button>
+  <button class="enter-room-btn" data-room-code="gj" data-room-name="광주">광주</button>
+  <button class="enter-room-btn" data-room-code="ud" data-room-name="울산대구">울산/대구</button>
+  <button class="enter-room-btn" data-room-code="dj" data-room-name="대전">대전</button>
+  <button class="enter-room-btn" data-room-code="jj" data-room-name="제주">제주</button>
 
 
 
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
 integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 <script>
   $(document).ready(function(){
     $('.enter-room-btn').on('click',function(){
+      var roomCode = $(this).data('room-code');
       var roomName = $(this).data('room-name');
-
       //방 입장
-      location.href='open-chat.html?room='+roomName;
+      location.href=`open-chat.html?room_code=${roomCode}&room_name=${roomName}`;
     });
 
   })
