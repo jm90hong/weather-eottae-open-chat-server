@@ -39,7 +39,7 @@ crossorigin="anonymous"></script>
     const urlParams = new URL(location.href).searchParams;
     const roomCode = urlParams.get('room_code');
     const roomName = urlParams.get('room_name');
-  
+    const nick = urlParams.get('nick');
 
     $('#title').html(`${roomName} 채팅방`)
 
@@ -48,20 +48,26 @@ crossorigin="anonymous"></script>
 
 
     socket.on('connect',()=>{
-      console.log('123');
+      console.log('소켓 연결됨.');
     })
 
     socket.emit('join',roomCode);
 
 
     $('#send-msg-btn').click(function(){
-      var message = $('#msg').val();
+      var value = $('#msg').val();
+
+      var message = {
+        nick:nick,
+        msg:value
+      }
       socket.emit('message', message);
     });
 
 
-    socket.on('message',(data)=>{
-      console.log(data);
+    socket.on('message',(message)=>{
+      console.log(message.nick+'  '+message.msg);
+
     })
   })
 </script>

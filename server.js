@@ -15,17 +15,23 @@ const io = socketIo(server,{
 
 
 io.on('connection', (socket) => {
+
     console.log('server has started!');
   
+
+    var toRoom;
+
     socket.on('join',(data)=>{
       console.log(`${socket.id} 가 ${data} room 에 입장`);
+      toRoom=data;
       socket.join(data);
+     
     });
 
 
     socket.on('message', (data) => {
       console.log('reicevied', data);
-      io.emit('message', data); // send all client
+      io.to(toRoom).emit('message', data); // send all client
     });
 });
   
