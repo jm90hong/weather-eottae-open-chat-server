@@ -11,12 +11,7 @@
 
 
   <main id="msg-container">
-    <div class="msg-box">
-        안녕
-    </div>
-    <div class="msg-box right">
-        응
-    </div>
+   
   </main>
   <div class="input-box">
       <h4 id="title">--채팅방</h4>
@@ -67,7 +62,21 @@ crossorigin="anonymous"></script>
 
     socket.on('message',(message)=>{
       console.log(message.nick+'  '+message.msg);
-
+      if(message.nick==nick){
+        //내가 보낸 메세지
+        $('#msg-container').append(`
+          <div class="msg-box right">
+            나 : ${message.msg}
+          </div>
+        `);
+      }else{
+        //상대방이 보낸 메세지
+        $('#msg-container').append(`
+          <div class="msg-box">
+            ${message.nick} : ${message.msg}
+          </div>
+        `);
+      }
     })
   })
 </script>
